@@ -33,7 +33,7 @@ public class CustomWingsMod {
         @SubscribeEvent
         public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
             EntityRendererProvider.Context ctx = event.getContext();
-            ctx.getSkinMap().forEach((skin, renderer) -> {
+            event.getSkins().forEach((skin, renderer) -> {
                 if (renderer instanceof PlayerRenderer pr) {
                     pr.addLayer(new WingsLayer(pr, ctx.bakeLayer(WingsLayer.LAYER)));
                 }
