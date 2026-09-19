@@ -2,12 +2,10 @@ package com.example.customwings;
 
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientCommandsEvent;
@@ -36,7 +34,7 @@ public class CustomWingsMod {
         public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
             EntityRendererProvider.Context ctx = event.getContext();
             for (String skin : event.getSkins()) {
-                EntityRenderer<? extends Player> renderer = event.getPlayerSkin(skin);
+                var renderer = event.getSkin(skin);
                 if (renderer instanceof PlayerRenderer pr) {
                     pr.addLayer(new WingsLayer(pr, ctx.bakeLayer(WingsLayer.LAYER)));
                 }
