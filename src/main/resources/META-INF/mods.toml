@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="customwings"
+version="1.0.0"
+displayName="Custom Wings"
+displayTest="IGNORE_ALL_VERSION"
+description='''Animated energy wings rendered on your back. Client-side only: only you can see them in any world/server.'''
+authors="wengchangpc"
+
+[[dependencies.customwings]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.customwings]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="CLIENT"
