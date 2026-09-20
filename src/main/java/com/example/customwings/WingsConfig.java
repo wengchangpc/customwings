@@ -15,6 +15,8 @@ public class WingsConfig {
     public static String colorMode = "rainbow";
     public static float size = 1.0F;
     public static float flapSpeed = 0.12F;
+    /** 第一人称翅膀可见（回头/飞行时屏幕边缘能看到翅膀） */
+    public static boolean fp = true;
 
     public static Path file() {
         return FMLPaths.CONFIGDIR.get().resolve("CustomWings").resolve("settings.txt");
@@ -56,7 +58,8 @@ public class WingsConfig {
                     "enabled=" + enabled,
                     "colorMode=" + colorMode,
                     "size=" + size,
-                    "flapSpeed=" + flapSpeed
+                    "flapSpeed=" + flapSpeed,
+                    "fp=" + fp
             );
             Files.write(f, lines);
         } catch (IOException e) {

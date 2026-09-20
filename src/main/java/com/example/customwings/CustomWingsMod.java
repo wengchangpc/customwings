@@ -87,6 +87,15 @@ public class CustomWingsMod {
                                 "[CustomWings] 扇动速度已设为 " + WingsConfig.flapSpeed), false);
                         return 1;
                     })))
+                .then(Commands.literal("fp").executes(ctx -> {
+                    WingsConfig.fp = !WingsConfig.fp;
+                    WingsConfig.save();
+                    ctx.getSource().sendSuccess(() -> Component.literal(
+                            WingsConfig.fp
+                                ? "[CustomWings] 第一人称翅膀已开启！回头或飞行时即可看到。"
+                                : "[CustomWings] 第一人称翅膀已关闭。"), false);
+                    return 1;
+                }))
                 .then(Commands.literal("reload").executes(ctx -> {
                     WingsConfig.load();
                     ctx.getSource().sendSuccess(() -> Component.literal("[CustomWings] 配置已重新加载！"), false);

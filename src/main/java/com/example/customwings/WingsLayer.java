@@ -25,7 +25,7 @@ public class WingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<Ab
 
     public static final ModelLayerLocation LAYER =
             new ModelLayerLocation(new ResourceLocation(CustomWingsMod.MODID, "wings"), "main");
-    private static final ResourceLocation TEXTURE =
+    public static final ResourceLocation TEXTURE =
             new ResourceLocation(CustomWingsMod.MODID, "textures/wings.png");
 
     private final ModelPart rightWing;
