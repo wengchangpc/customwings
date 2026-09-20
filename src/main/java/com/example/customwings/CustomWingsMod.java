@@ -16,6 +16,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(CustomWingsMod.MODID)
 public class CustomWingsMod {
     public static final String MODID = "customwings";
+    public static final org.apache.logging.log4j.Logger LOGGER =
+            org.apache.logging.log4j.LogManager.getLogger(MODID);
 
     public CustomWingsMod() {
         WingsConfig.load();
