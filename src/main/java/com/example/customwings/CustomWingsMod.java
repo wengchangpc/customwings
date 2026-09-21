@@ -98,6 +98,15 @@ public class CustomWingsMod {
                                 : "[CustomWings] 第一人称翅膀已关闭。"), false);
                     return 1;
                 }))
+                .then(Commands.literal("gloss").executes(ctx -> {
+                    WingsConfig.gloss = !WingsConfig.gloss;
+                    WingsConfig.save();
+                    ctx.getSource().sendSuccess(() -> Component.literal(
+                            WingsConfig.gloss
+                                ? "[CustomWings] 流光镀层已开启！暗处也会发光。"
+                                : "[CustomWings] 流光镀层已关闭。"), false);
+                    return 1;
+                }))
                 .then(Commands.literal("reload").executes(ctx -> {
                     WingsConfig.load();
                     ctx.getSource().sendSuccess(() -> Component.literal("[CustomWings] 配置已重新加载！"), false);

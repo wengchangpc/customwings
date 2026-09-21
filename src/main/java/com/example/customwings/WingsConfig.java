@@ -59,7 +59,9 @@ public class WingsConfig {
                     "colorMode=" + colorMode,
                     "size=" + size,
                     "flapSpeed=" + flapSpeed,
-                    "fp=" + fp
+                    "fp=" + fp,
+                    "gloss=" + gloss,
+                    "glossAlpha=" + glossAlpha
             );
             Files.write(f, lines);
         } catch (IOException e) {

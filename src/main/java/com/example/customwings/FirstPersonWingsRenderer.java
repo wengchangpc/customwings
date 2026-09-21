@@ -120,9 +120,24 @@ public class FirstPersonWingsRenderer {
         VertexConsumer vc = bufferSource.getBuffer(RenderType.entityTranslucent(WingsLayer.TEXTURE));
         rightWing.render(ps, vc, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
         leftWing.render(ps, vc, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
+
+        // 流光镀层：全亮度自发光再画一遍，呼吸式脉动
+        if (WingsConfig.gloss) {
+            float pulse = 0.78F + 0.22F * Mth.sin(t * 0.09F);
+            float alpha = Mth.clamp(WingsConfig.glossAlpha, 0.0F, 1.0F) * pulse;
+            float gr = r + (1.0F - r) * 0.35F;
+            float gg = g + (1.0F - g) * 0.35F;
+            float gb = b + (1.0F - b) * 0.35F;
+            VertexConsumer gvc = bufferSource.getBuffer(RenderType.eyes(WingsLayer.TEXTURE));
+            rightWing.render(ps, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
+            leftWing.render(ps, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
+        }
         ps.popPose();
 
         // 只冲刷翅膀用到的缓冲区，不影响其他渲染
         bufferSource.endBatch(RenderType.entityTranslucent(WingsLayer.TEXTURE));
+        if (WingsConfig.gloss) {
+            bufferSource.endBatch(RenderType.eyes(WingsLayer.TEXTURE));
+        }
     }
 }

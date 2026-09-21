@@ -108,6 +108,19 @@ public class WingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<Ab
         rightWing.render(poseStack, vc, packedLight, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
         leftWing.render(poseStack, vc, packedLight, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
 
+        // 流光镀层：全亮度自发光再画一遍，呼吸式脉动（暗处也会发亮）
+        if (WingsConfig.gloss) {
+            float pulse = 0.78F + 0.22F * Mth.sin(t * 0.09F);
+            float alpha = Mth.clamp(WingsConfig.glossAlpha, 0.0F, 1.0F) * pulse;
+            // 镀层颜色向白色提亮，流光更璀璨
+            float gr = r + (1.0F - r) * 0.35F;
+            float gg = g + (1.0F - g) * 0.35F;
+            float gb = b + (1.0F - b) * 0.35F;
+            VertexConsumer gvc = buffer.getBuffer(RenderType.eyes(TEXTURE));
+            rightWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
+            leftWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
+        }
+
         poseStack.popPose();
     }
 }
