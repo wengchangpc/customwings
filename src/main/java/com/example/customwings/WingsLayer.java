@@ -109,16 +109,17 @@ public class WingsLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<Ab
         leftWing.render(poseStack, vc, packedLight, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
 
         // 流光镀层：全亮度自发光再画一遍，呼吸式脉动（暗处也会发亮）
+        // eyes 渲染类型为 ONE,ONE 加法混合：alpha 不参与混合，亮度脉动必须走顶点色
         if (WingsConfig.gloss) {
             float pulse = 0.78F + 0.22F * Mth.sin(t * 0.09F);
-            float alpha = Mth.clamp(WingsConfig.glossAlpha, 0.0F, 1.0F) * pulse;
+            float k = Mth.clamp(WingsConfig.glossAlpha * 2.0F, 0.0F, 1.0F) * pulse;
             // 镀层颜色向白色提亮，流光更璀璨
-            float gr = r + (1.0F - r) * 0.35F;
-            float gg = g + (1.0F - g) * 0.35F;
-            float gb = b + (1.0F - b) * 0.35F;
+            float gr = (r + (1.0F - r) * 0.35F) * k;
+            float gg = (g + (1.0F - g) * 0.35F) * k;
+            float gb = (b + (1.0F - b) * 0.35F) * k;
             VertexConsumer gvc = buffer.getBuffer(RenderType.eyes(TEXTURE));
-            rightWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
-            leftWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, alpha);
+            rightWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, 1.0F);
+            leftWing.render(poseStack, gvc, 0xF000F0, OverlayTexture.NO_OVERLAY, gr, gg, gb, 1.0F);
         }
 
         poseStack.popPose();
