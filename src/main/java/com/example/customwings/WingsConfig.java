@@ -17,6 +17,9 @@ public class WingsConfig {
     public static float flapSpeed = 0.12F;
     /** 第一人称翅膀可见（回头/飞行时屏幕边缘能看到翅膀） */
     public static boolean fp = true;
+    /** 流光镀层（全亮度自发光脉动） */
+    public static boolean gloss = true;
+    public static float glossAlpha = 0.35F;
 
     public static Path file() {
         return FMLPaths.CONFIGDIR.get().resolve("CustomWings").resolve("settings.txt");
@@ -41,6 +44,8 @@ public class WingsConfig {
                     case "colorMode" -> colorMode = v;
                     case "size" -> { try { size = Float.parseFloat(v); } catch (NumberFormatException ignored) {} }
                     case "flapSpeed" -> { try { flapSpeed = Float.parseFloat(v); } catch (NumberFormatException ignored) {} }
+                    case "gloss" -> gloss = Boolean.parseBoolean(v);
+                    case "glossAlpha" -> { try { glossAlpha = Float.parseFloat(v); } catch (NumberFormatException ignored) {} }
                 }
             }
         } catch (IOException e) {
